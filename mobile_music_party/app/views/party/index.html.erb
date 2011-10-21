@@ -1,0 +1,21 @@
+Welcome!
+
+
+<script type="text/javascript">
+function check_requests()
+{
+   var num_songs = $('.song').length;
+   jQuery.post('/', {num_songs: num_songs});
+}
+ setInterval("check_requests()", 2000);
+
+</script>
+
+
+<div id="list">
+    <% @requests.each do |song| %>
+      <div class="song">
+         <%= song.artist %>, <%= song.song %>
+      </div>
+    <% end %>
+</div>

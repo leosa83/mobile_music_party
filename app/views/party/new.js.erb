@@ -1,0 +1,9 @@
+<% if !@new_songs.nil? %>
+var html = '';
+<% @new_songs.each do |song| %>
+    html += "<div class='song'><%= song.artist %>, <%= song.song %></div>";
+<% end %>
+
+jQuery('#list').append(html);
+
+<% end %>

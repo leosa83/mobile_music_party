@@ -1,0 +1,22 @@
+<%= render :partial => 'dependancies' %>
+<script type="text/javascript">
+    $('.submit').live('click', function(){
+       $.post('<%= mobile_index_path %>', {artist:$('#artist').val(), song:$('#song').val()});
+    });
+</script>
+
+
+<div id="jqt">
+<%= form_for(@request, :url => {:action => 'create'}) do |f| %>
+    <div>
+        <%= f.label :artist, :class => "ui-input-text" %>
+        <%= f.text_field :artist, :class => 'ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-d', :type => 'text', :id => 'artist' %>
+    </div> <br />
+    <div>
+        <%= f.label :song, :class => "ui-input-text" %>
+        <%= f.text_field :song, :class => 'ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-d', :type => 'text', :id => 'song' %>
+    </div>
+	<div class="ui-block-b"><div aria-disabled="false" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-a" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Submit</span></span><button aria-disabled="false" class="ui-btn-hidden submit" type="submit" data-theme="a">Submit</button></div></div>
+<% end %>
+</div>
+<div id="request_response"></div>

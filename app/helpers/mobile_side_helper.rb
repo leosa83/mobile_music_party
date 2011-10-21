@@ -1,0 +1,2 @@
+module MobileSideHelper
+end
