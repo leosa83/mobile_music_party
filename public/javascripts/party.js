@@ -6,9 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-function check_requests()
-{
-   var num_songs = $('.song').length;
-   jQuery.post('/', {num_songs: num_songs});
-}
-setInterval("check_requests()", 2000);
+//function check_requests()
+//{
+//   var num_songs = $('.song').length;
+//   jQuery.post('/', {num_songs: num_songs});
+//}
+////setInterval("check_requests()", 2000);

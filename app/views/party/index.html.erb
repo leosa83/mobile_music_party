@@ -1,67 +1,25 @@
-<%= javascript_include_tag 'party', 'jqtube'  %>
+<%= javascript_include_tag 'party', 'jqtube', 'youtube_player', 'playArtist'  %>
+
+<style>
+.left {float: left;}
+.right {float: left;}
+</style>
+
+<div id="videoDiv">Loading...</div>
 
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript">
- var currentsong = '';
-function check_song()
-{
-var search_input = $('.song:last').text();
-if (currentsong != $('.song:last').text())
-{
 
-
-currentsong = search_input;
-var keyword= encodeURIComponent(search_input);
-// Youtube API
-var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=1&v=2&alt=jsonc';
-
-$.ajax
-({
-type: "GET",
-url: yt_url,
-dataType:"jsonp",
-success: function(response)
-{
-if(response.data.items)
-{
-    $.each(response.data.items, function(i,data)
-    {
-        var video_id=data.id;
-        var video_title=data.title;
-        var video_viewCount=data.viewCount;
-        // IFRAME Embed for YouTube
-        var video_frame="<iframe width='640' height='385' src='http://www.youtube.com/embed/"+video_id+"?autoplay=1' frameborder='0' type='text/html'></iframe>";
-
-        var final="<div id='title'>"+video_title+"</div><div>"+video_frame+"</div><div id='count'>"+video_viewCount+" Views</div>";
-
-        $("#result").html(final); // Result
-
-    });
-}
-else
-{
-$("#result").html("<div id='no'>No Video</div>");
-}
-}
-});
-}
-}
-
-
-setInterval("check_song()", 2000);
-</script>
+<input type="text" id="playArtist" value="" /><input type="button" value="Play Artist" onclick="playArtist();"/><input type="button" value="Previous Song" onclick="previousSong();" /> <input type="button" value="Next Song" onclick="nextSong();" />
 
 <div id="result">
 </div>
 
-
-
+<hr />
 <div id="video_fetch_response"></div>
-<div id="list">
-    <% @requests.each do |song| %>
-      <div class="song">
-         <%= song.artist %> <%= song.song %>
-      </div>
-    <% end %>
+<div id="lists">
+ <div class="right">
+   <div id="artist_tracks">
+
+   </div>
+ </div>
 </div>

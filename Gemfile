@@ -5,10 +5,8 @@ gem 'rails', '3.0.7'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'gdata'
-gem 'sqlite3', '1.3.4'
-gem 'fcgi'
-
-
+gem 'sqlite3'
+gem 'rockstar'
 # Use unicorn as the web server
 # gem 'unicorn'
 
