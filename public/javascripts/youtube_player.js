@@ -35,7 +35,6 @@
     function startPlayar(tracks)
     {
        global_count++;
-        alert(global_count);
         return_video_key(current_artist, tracks[global_count]);
     }
 
