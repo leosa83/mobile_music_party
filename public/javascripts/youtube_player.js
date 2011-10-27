@@ -111,7 +111,7 @@ function onYouTubePlayerReady(playerId) {
       // The video to load
       var videoID = "ylLzyHk54Z0"
       // Lets Flash from another domain call JavaScript
-      var params = { allowScriptAccess: "always" };
+      var params = { allowScriptAccess: "always",allowFullScreen: "true" };
       // The element id of the Flash embed
       var atts = { id: "ytPlayer" };
       // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
