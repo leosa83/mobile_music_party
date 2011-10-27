@@ -25,7 +25,14 @@ class PartyController < ApplicationController
 
   def return_artist_tracks
     artist = params[:artist]
+    search = params[:search]
 
+    if search.nil?
+      @condition = 'add'
+    else
+      @condition = nil
+    end
+    @artist = artist
     artist_array = Rockstar::Artist.new(artist, :include_info => true)
 
     @tracks = []

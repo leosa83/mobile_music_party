@@ -1,16 +1,30 @@
 <%= javascript_include_tag 'party', 'jqtube', 'youtube_player', 'playArtist'  %>
 
 <style>
-.left {float: left;}
-.right {float: left;}
-.tracks {text-decoration: underline; cursor: pointer; }
+    .left {float: left;}
+    .right {float: left;}
+    .tracks {text-decoration: underline; cursor: pointer; }
 </style>
+
+<div class="artistQueue">
+
+</div>
+
 
 <div id="videoDiv">Loading...</div>
 
 
 
-<input type="text" id="playArtist" value="" /><input type="button" value="Play Artist" onclick="playArtist();"/><input type="button" value="Previous Song" onclick="previousSong();" /> <input type="button" value="Next Song" onclick="nextSong();" />
+<input type="text" id="playArtist" value="" />
+<input type="button" value="Add Artist" onclick="addArtistToQueue();"/>
+<input type="button" value="Search Artist" onclick="searchArtist();"/>
+
+<input type="button" value="Previous Song" onclick="previousSong();" />
+<input type="button" value="Next Song" onclick="nextSong();" />
+
+
+
+
 
 <div id="result">
 </div>

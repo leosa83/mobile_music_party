@@ -1,9 +1,10 @@
 $('.right').html('');
-global_count = -1;
 counter = 0;
 <% @tracks.each do |track| %>
 $('.right').append("<div class='tracks' id="+counter+"><%= track %></div>");
 counter++;
 <% end %>
-
- buildArray();
+<% if @condition != 'search' %>
+tmpArtist = '<%= @artist %>';
+<% end %>
+buildTmpArray();

@@ -1,17 +1,27 @@
-  $(document).ready(function(){
 
-});
-    var current_artist = '';
+    var current_artist = ''
+    var tmpArtist = '';
     var global_count = -1;
     var tracks = new Array();
+    var tmpTracks = new Array();
+    var artistQueue = new Array();
 
     function buildArray(){
-       tracks = new Array();
+        tracks = new Array();
         $.each($('.tracks'), function(i, v){
             tracks.push(v.firstChild.data);
         });
 
-        startPlayar(tracks);
+        //startPlayar(tracks);
+    }
+
+    function buildTmpArray(){
+        tmpTracks = new Array();
+        $.each($('.tracks'), function(i, v){
+            tmpTracks.push(v.firstChild.data);
+        });
+
+        //startPlayar(tracks);
     }
 
     function nextSong(){
@@ -34,12 +44,15 @@
 
     function startPlayar(tracks)
     {
-       global_count++;
+        global_count++;
         return_video_key(current_artist, tracks[global_count]);
     }
 
    $('.tracks').live('click', function(){
+        buildArray();
+        current_artist = tmpArtist;
         global_count = parseInt($(this).attr('id') - 1);
+
         startPlayar(tracks);
    });
 
@@ -111,7 +124,7 @@ function onYouTubePlayerReady(playerId) {
       // The video to load
       var videoID = "ylLzyHk54Z0"
       // Lets Flash from another domain call JavaScript
-      var params = { allowScriptAccess: "always",allowFullScreen: "true" };
+      var params = { allowScriptAccess: "always", allowFullScreen: "1" };
       // The element id of the Flash embed
       var atts = { id: "ytPlayer" };
       // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)

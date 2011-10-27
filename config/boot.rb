@@ -1,4 +1,3 @@
-Gem.clear_paths
 require 'rubygems'
 gem 'bundler' #koz added http://stackoverflow.com/questions/2282969/rails3-server-and-bundler-error-uninitialized-constant-bundler-nameerror
 # Set up gems listed in the Gemfile.
