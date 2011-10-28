@@ -93,6 +93,7 @@
           height: '390',
           width: '640',
           videoId: 'u1zgFlCw8Aw',
+          playerVars: { 'autoplay': 1, 'controls': 1 },
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -125,4 +126,6 @@
       function startVideo(id) {
           player.loadVideoById(id);
           player.playVideo();
+          $('#player').trigger('click');
+          $('#player iframe').trigger('click');
       }
