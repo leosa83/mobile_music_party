@@ -96,11 +96,15 @@
           playerVars: { 'autoplay': 1, 'controls': 1 },
           events: {
             'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            'onStateChange': onPlayerStateChange,
+             'onError': onPlayerError
           }
         });
       }
 
+      function onPlayerError(event) {
+          alert(event.data);
+      }
 
 
       // 4. The API will call this function when the video player is ready.
@@ -116,10 +120,7 @@
         if (event.data == YT.PlayerState.ENDED) {
           startPlayar(tracks);
         }
-        if (event.data == '5') {
-          $('#player').trigger('click');
-          $('#player iframe').trigger('click');
-        }
+
       }
       function stopVideo() {
         player.stopVideo();
@@ -130,6 +131,4 @@
       function startVideo(id) {
           player.loadVideoById(id);
           player.playVideo();
-          $('#player').trigger('click');
-          $('#player iframe').trigger('click');
       }
