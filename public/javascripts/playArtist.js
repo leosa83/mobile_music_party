@@ -5,11 +5,6 @@
  * Time: 10:48 PM
  * To change this template use File | Settings | File Templates.
  */
-
-
-
-
-
 function playArtist(index) {
 
 //var artist = $('#playArtist').val();

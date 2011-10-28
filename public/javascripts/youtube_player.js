@@ -72,69 +72,57 @@
                         {
                             $.each(response.data.items, function(i,data){
 
-                               loadVideo(data.id);
+                               startVideo(data.id);
                         })}
                     }
             });
     }
 
+     // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+      tag.src = "http://www.youtube.com/player_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
 
-    function updateHTML(elmId, value) {
-      document.getElementById(elmId).innerHTML = value;
-    }
-
-    // Loads the selected video into the player.
-    function loadVideo(videoID) {
-
-
-      if(ytplayer) {
-        ytplayer.loadVideoById(videoID);
+      function onYouTubePlayerAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'u1zgFlCw8Aw',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
       }
-    }
 
-    function onPlayerStateChange(newState) {
 
-        if (newState == 0 || newState == '0') {
-            startPlayar(tracks);
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.ENDED) {
+          startPlayar(tracks);
         }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
 
 
-        updateHTML("playerState", newState);
-    }
 
-    // This function is called when an error is thrown by the player
-    function onPlayerError(errorCode) {
-      alert("An error occured of type:" + errorCode);
-    }
-
-// This function is automatically called by the player once it loads
-function onYouTubePlayerReady(playerId) {
-  ytplayer = document.getElementById("ytPlayer");
-  // This causes the updatePlayerInfo function to be called every 250ms to
-  // get fresh data from the player
-  ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-  ytplayer.addEventListener("onError", "onPlayerError");
-  //Load an initial video into the player
-  ytplayer.cueVideoById("ylLzyHk54Z0");
-}
-
-    // The "main method" of this sample. Called when someone clicks "Run".
-    function loadPlayer() {
-      // The video to load
-      var videoID = "ylLzyHk54Z0"
-      // Lets Flash from another domain call JavaScript
-      var params = { allowScriptAccess: "always", allowFullScreen: "1" };
-      // The element id of the Flash embed
-      var atts = { id: "ytPlayer" };
-      // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
-      swfobject.embedSWF("http://www.youtube.com/v/" + videoID +
-                         "?version=3&enablejsapi=1&playerapiid=player1&autoplay=1",
-                         "videoDiv", "480", "295", "9", null, null, params, atts);
-    }
-
-
-  function _run() {
-    loadPlayer();
-  }
-     google.setOnLoadCallback(_run);
+      function startVideo(id) {
+          player.loadVideoById(id);
+          player.playVideo();
+      }
