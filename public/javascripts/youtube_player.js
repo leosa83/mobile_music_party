@@ -1,5 +1,5 @@
 
-    var current_artist = ''
+    var current_artist = '';
     var tmpArtist = '';
     var global_count = -1;
     var tracks = new Array();
@@ -103,8 +103,32 @@
       }
 
       function onPlayerError(event) {
-          alert(event.data);
+          if (event.data == '150' || event.data == '101')
+          {
+              fix_vevo_key(current_artist, tracks[global_count])
+          }
       }
+
+    function fix_vevo_key(artist, song)
+    {
+            query_string = artist + song;
+            var keyword= encodeURIComponent(query_string);
+            // Youtube API
+            var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=2&v=2&alt=jsonc';
+            $.ajax({
+                type: "GET",
+                url: yt_url,
+                dataType:"json",
+                    success: function(response){
+                        if(response.data.items)
+                        {
+                            startVideo(response.data.items[1].id)
+
+                        }
+                }
+            });
+    }
+
 
 
       // 4. The API will call this function when the video player is ready.
