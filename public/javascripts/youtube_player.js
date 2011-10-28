@@ -2,6 +2,7 @@
     var current_artist = '';
     var tmpArtist = '';
     var global_count = -1;
+    var error_counter = 1;
     var tracks = new Array();
     var tmpTracks = new Array();
     var artistQueue = new Array();
@@ -105,16 +106,21 @@
       function onPlayerError(event) {
           if (event.data == '150' || event.data == '101')
           {
-              fix_vevo_key(current_artist, tracks[global_count])
+              error_counter++;
+              fix_vevo_key(current_artist, tracks[global_count], error_counter)
+          }
+          else
+          {
+              error_counter = 1;
           }
       }
 
-    function fix_vevo_key(artist, song)
+    function fix_vevo_key(artist, song, error_counter)
     {
             query_string = artist + song;
             var keyword= encodeURIComponent(query_string);
             // Youtube API
-            var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=2&v=2&alt=jsonc';
+            var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results='+error_counter+'&v=2&alt=jsonc';
             $.ajax({
                 type: "GET",
                 url: yt_url,
@@ -122,7 +128,7 @@
                     success: function(response){
                         if(response.data.items)
                         {
-                            startVideo(response.data.items[1].id)
+                            startVideo(response.data.items[response.data.items.length-1].id)
 
                         }
                 }
