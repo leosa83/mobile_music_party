@@ -116,6 +116,10 @@
         if (event.data == YT.PlayerState.ENDED) {
           startPlayar(tracks);
         }
+        if (event.data == '5') {
+          $('#player').trigger('click');
+          $('#player iframe').trigger('click');
+        }
       }
       function stopVideo() {
         player.stopVideo();
