@@ -108,7 +108,7 @@
           {
               error_counter++;
               fix_vevo_key(current_artist, tracks[global_count], error_counter);
-              if (error_counter > 5)
+              if (error_counter == 5)
               {
                   alert('Video has been removed from the list... Blame Vimeo.');
                   tracks.splice(global_count, 1);
