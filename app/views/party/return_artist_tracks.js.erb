@@ -1,10 +1,15 @@
-$('.right').html('');
+$('.track_listings').html('');
 counter = 0;
 <% @tracks.each do |track| %>
-$('.right').append("<div class='tracks' id="+counter+"><%= track %></div>");
+$('.track_listings').append("<div class='tracks' id='track_"+counter+"'><%= track %></div>");
 counter++;
 <% end %>
 <% if @condition != 'search' %>
 tmpArtist = '<%= @artist %>';
 <% end %>
+
+if (tmpArtistCount == artist_count)
+{
+    $('#track_'+global_count).addClass('active');
+}
 buildTmpArray();

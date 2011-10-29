@@ -1,0 +1,11 @@
+  var i = artistQueue.length;
+<% if @verified  %>
+  artistQueue.push('<%= @artist %>');
+
+    $('#artist_'+i).html('<%= @artist %>');
+//  var appendString = "<div class='artist_shortcut' id='artist_"+i+"'><%= @artist %></div>";
+//   $('.artistQueue').append(appendString);
+<% else %>
+    $('#artist_'+i).html('<%= @artist %> <span class="error"> (Not Found) </span>').delay(1700).fadeOut(800);
+    artistQueue.splice(i, 1);
+<% end %>

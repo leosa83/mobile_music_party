@@ -45,6 +45,21 @@ class PartyController < ApplicationController
 
   end
 
+  def verify_artist
+     @artist = params[:artist]
+
+     artist_array = Rockstar::Artist.new(@artist, :include_info => true)
+     if !artist_array.content
+       @verified = false
+     else
+       @verified = true
+     end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
 
 end

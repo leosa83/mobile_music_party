@@ -23,15 +23,17 @@ function searchArtist() {
 
 function addArtistToQueue(){
   var artist = $('#playArtist').val();
-  artistQueue.push(artist);
-  var appendString = '';
-  $.each(artistQueue, function(i, v){
-    appendString += "<div class='artist_shortcut' id='"+i+"'>"+v+"</div>";
-  });
-   $('.artistQueue').html(appendString);
+    artistQueue.push(artist);
+  var i = artistQueue.length;
+
+  var appendString = "<div class='artist_shortcut' id='artist_"+i+"'>"+artist+" (Verifying)</div>";
+  $('.artistQueue').append(appendString);
+
+  $.post('/verifyArtist', {artist:artist});
 }
 
 $('.artist_shortcut').live('click', function(){
-    artist = $(this).text();
+    var artist = $(this).text();
+     tmpArtistCount = $(this).attr('id').split('_', 2)[1];
     $.post('/playArtist', {artist:artist, search:artist});
 });

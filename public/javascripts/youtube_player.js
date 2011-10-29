@@ -3,6 +3,9 @@
     var tmpArtist = '';
     var global_count = -1;
     var error_counter = 1;
+    var artist_count = '';
+    var tmpArtistCount = '';
+
     var tracks = new Array();
     var tmpTracks = new Array();
     var artistQueue = new Array();
@@ -21,7 +24,6 @@
         $.each($('.tracks'), function(i, v){
             tmpTracks.push(v.firstChild.data);
         });
-
         //startPlayar(tracks);
     }
 
@@ -52,11 +54,23 @@
    $('.tracks').live('click', function(){
         buildArray();
         current_artist = tmpArtist;
-        global_count = parseInt($(this).attr('id') - 1);
+        var arr = $(this).attr('id').split('_', 2);
+        global_count = parseInt(arr[1] - 1);
+        artist_count = tmpArtistCount;
+        $('.artist_shortcut').removeClass('active');
+        $('#artist_'+artist_count).addClass('active');
 
         startPlayar(tracks);
    });
 
+    function highlight_current_song() {
+        de_highlight_song();
+        $('#track_'+global_count).addClass('active_song');
+    }
+
+    function de_highlight_song(){
+        $('.tracks').removeClass('active_song');
+    }
 
     function return_video_key(artist, song)
     {
@@ -72,7 +86,10 @@
                         if(response.data.items)
                         {
                             $.each(response.data.items, function(i,data){
-
+                               if (tmpArtistCount == artist_count)
+                               {
+                                  highlight_current_song();
+                               }
                                startVideo(data.id);
                         })}
                     }
@@ -93,7 +110,7 @@
         player = new YT.Player('player', {
           height: '390',
           width: '640',
-          videoId: 'u1zgFlCw8Aw',
+          videoId: 'mjli3hj0ZkM',
           playerVars: { 'autoplay': 1, 'controls': 1 },
           events: {
             'onReady': onPlayerReady,
@@ -134,8 +151,11 @@
                     success: function(response){
                         if(response.data.items)
                         {
-                            startVideo(response.data.items[response.data.items.length-1].id)
-
+                             if (tmpArtistCount == artist_count)
+                             {
+                                  highlight_current_song();
+                                  startVideo(response.data.items[response.data.items.length-1].id)
+                             }
                         }
                 }
             });

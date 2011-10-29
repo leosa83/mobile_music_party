@@ -1,39 +1,46 @@
 <%= javascript_include_tag 'party', 'jqtube', 'youtube_player', 'playArtist'  %>
 
 <style>
-    .left {float: left;}
-    .right {float: left;}
-    .tracks {text-decoration: underline; cursor: pointer; }
+
+    #player {border: solid 15px black;}
+   .left {float: left;}
+   .right {float: left;}
+   .tracks {cursor: pointer; border-bottom: solid 1px; padding: 2px; }
+   .tracks:hover {background-color: #bdd5f3;}
+   .container {  width: 1200px; margin-left: auto; margin-right: auto;}
+    #player {float: left; }
+   .track_container {float: left; width: 300px; overflow-y: scroll; height: 420px; border-top: solid 1px; border-bottom: solid 1px;}
+   .artist_container {float: left; width: 220px; overflow-y: scroll; height: 420px; border-top: solid 1px; border-bottom: solid 1px; }
+   .artist_shortcut { padding: 3px; cursor: pointer; border-bottom: solid 1px; }
+   .artist_shortcut:hover { background-color: #e5e5e5; }
+   .active {background-color: #b3b3b3; }
+   .active_song {background-color: #5b98e3;}
+   .controls { width: 100%; display: inline-block; padding: 10px;}
+   .error {color: red;}
+   .success {color: green;}
+
 </style>
 
-<div class="artistQueue">
 
-</div>
-
-
+<div class="container">
+<div class="content">
     <!-- 1. The <div> tag will contain the <iframe> (and video player) -->
 <div id="player"></div>
 
-
-
-
+<div class="artist_container">
+    <div class="artistQueue"></div>
+</div>
+<div class="track_container">
+    <div class="track_listings"></div>
+</div>
+</div>
+<div class="controls">
 <input type="text" id="playArtist" value="" />
 <input type="button" value="Add Artist" onclick="addArtistToQueue();"/>
-<input type="button" value="Search Artist" onclick="searchArtist();"/>
+<!--<input type="button" value="Search Artist" onclick="searchArtist();"/>-->
 
 <input type="button" value="Previous Song" onclick="previousSong();" />
 <input type="button" value="Next Song" onclick="nextSong();" />
-
-
-<div id="result">
 </div>
 
-<hr />
-<div id="video_fetch_response"></div>
-<div id="lists">
- <div class="right">
-   <div id="artist_tracks">
-
-   </div>
- </div>
 </div>

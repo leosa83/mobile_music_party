@@ -9,6 +9,7 @@ MobileMusicParty::Application.routes.draw do
   match '/' => 'party#new', :via => 'post'
 
   match '/playArtist' => 'party#return_artist_tracks', :via => 'post'
+  match '/verifyArtist' => 'party#verify_artist', :via => 'post'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
