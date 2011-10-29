@@ -2,49 +2,67 @@
 
 <style>
 
-
-
-
-
     #player {border: solid 15px black;}
    .left {float: left;}
    .right {float: left;}
    .tracks {cursor: pointer; border-bottom: solid 1px; padding: 2px; }
-   .tracks:hover {background-color: #bdd5f3;}
-   .container {  width: 1200px; margin-left: auto; margin-right: auto;}
+   .tracks:hover {background-color: #e5e5e5;}
+   .container {  width: 1700px; position: absolute; margin-left: auto; margin-right: auto;}
     #player {float: left; }
-   .track_container {float: left; width: 300px; overflow-y: scroll; height: 420px; border-top: solid 1px; border-bottom: solid 3.5px;}
-   .artist_container {float: left; width: 220px; overflow-y: scroll; height: 420px; border-top: solid 1px; border-bottom: solid 3.5px; }
-   .artist_shortcut { padding: 3px; cursor: pointer; border-bottom: solid 1px; }
-   .artist_shortcut:hover { background-color: #e5e5e5; }
+
+   .playlist_content_container {float: left; width: 300px; overflow-y: scroll; height: 420px; border-top: solid 5px;}
+   .playlist_container {float: left; width: 200px; overflow-y: scroll; height: 420px; border-top: solid 5px; }
+   .track_container {float: left; width: 300px; overflow-y: scroll; height: 420px; border-top: solid 5px; }
+   .artist_container {float: left; width: 200px; overflow-y: scroll; height: 420px; border-top: solid 5px;  }
+   .artist_listing { padding: 3px; cursor: pointer; border-bottom: solid 1px; }
+   .artist_listing:hover { background-color: #e5e5e5; }
    .active {background-color: #b3b3b3; }
    .active_song {background-color: #5b98e3;}
    .controls { width: 100%; display: inline-block; padding: 10px;}
    .error {color: red;}
    .success {color: green;}
 
+   .delete_me {float: right; padding-right: 4px; margin: -4px; }
+   .header { border-bottom: solid 3px black; text-align: center; background-color: gray; color: white; font-weight: bold; font-family: sans-serif, helvetica; font-size: 17px; padding: 2px;}
+
+   .artist_shortcut {display: inline-block; width: 150px; }
+
 </style>
 
 
 <div class="container">
-<div class="content">
-    <!-- 1. The <div> tag will contain the <iframe> (and video player) -->
-<div id="player"></div>
+    <div class="content">
+        <div class="playlist_container">
+            <div class="header">My Playlists</div>
+            <div class="playlistQueue"></div>
+        </div>
+        <div class="playlist_content_container">
+            <div class="header">My Tracks</div>
+            <div class="playlist_track_listings"></div>
+        </div>
 
-<div class="artist_container">
-    <div class="artistQueue"></div>
-</div>
-<div class="track_container">
-    <div class="track_listings"></div>
-</div>
-</div>
-<div class="controls">
-<input type="text" id="playArtist" value="" />
-<input type="button" value="Add Artist" onclick="addArtistToQueue();"/>
-<!--<input type="button" value="Search Artist" onclick="searchArtist();"/>-->
+        <!-- 1. The <div> tag will contain the <iframe> (and video player) -->
+        <div id="player"></div>
 
-<input type="button" value="Previous Song" onclick="previousSong();" />
-<input type="button" value="Next Song" onclick="nextSong();" />
-</div>
+        <div class="artist_container">
+             <div class="header">Artists</div>
+              <div class="artistQueue">
+                <% @artists.each do |artist| %>
+                    <div class="artist_listing" id="listing_<%= artist.id %>"><div class="artist_shortcut" id="artist_<%= artist.id %>"><%= artist.artist %></div><span class="delete_me" id="delete_<%= artist.id %>"><%= image_tag 'delete_me_small.png' %></span></div>
+                <% end %>
+              </div>
+        </div>
+        <div class="track_container">
+             <div class="header">Tracks</div>
+            <div class="track_listings"></div>
+        </div>
+    </div>
+    <div class="controls">
+        <input type="text" id="playArtist" value="" />
+        <input type="button" value="Add Artist" onclick="addArtistToQueue();"/>
+        <!--<input type="button" value="Search Artist" onclick="searchArtist();"/>-->
 
+        <input type="button" value="Previous Song" onclick="previousSong();" />
+        <input type="button" value="Next Song" onclick="nextSong();" />
+    </div>
 </div>

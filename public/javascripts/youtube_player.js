@@ -57,19 +57,19 @@
         var arr = $(this).attr('id').split('_', 2);
         global_count = parseInt(arr[1] - 1);
         artist_count = tmpArtistCount;
-        $('.artist_shortcut').removeClass('active');
-        $('#artist_'+artist_count).addClass('active');
+        $('.artist_listing').removeClass('active');
+        $('#listing_'+artist_count).addClass('active');
 
         startPlayar(tracks);
    });
 
     function highlight_current_song() {
         de_highlight_song();
-        $('#track_'+global_count).addClass('active_song');
+        $('#track_'+global_count).addClass('active');
     }
 
     function de_highlight_song(){
-        $('.tracks').removeClass('active_song');
+        $('.tracks').removeClass('active');
     }
 
     function return_video_key(artist, song)

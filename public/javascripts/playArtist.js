@@ -23,17 +23,33 @@ function searchArtist() {
 
 function addArtistToQueue(){
   var artist = $('#playArtist').val();
-    artistQueue.push(artist);
-  var i = artistQueue.length;
-
-  var appendString = "<div class='artist_shortcut' id='artist_"+i+"'>"+artist+" (Verifying)</div>";
+  //  artistQueue.push(artist);
+ // var i = artistQueue.length;
+  var i = parseInt($('.artist_listing:last').attr('id').split('_', 2)[1]);
+    alert(i);
+  i += 1;
+  var appendString = "<div class='artist_listing' id='listing_"+i+"'><div class='artist_shortcut' id='artist_"+i+"'>"+artist+" (Verifying)</div></div>";
   $('.artistQueue').append(appendString);
 
   $.post('/verifyArtist', {artist:artist});
 }
 
-$('.artist_shortcut').live('click', function(){
+$('.artist_listing .artist_shortcut').live('click', function(){
     var artist = $(this).text();
      tmpArtistCount = $(this).attr('id').split('_', 2)[1];
     $.post('/playArtist', {artist:artist, search:artist});
 });
+
+$('.delete_me').live('click', function(){
+   pos = parseInt($(this).attr('id').split('_', 2)[1]);
+   $('#listing_'+pos).fadeOut(400);
+   artistQueue.splice(pos, 1);
+
+});
+
+
+
+
+
+
+

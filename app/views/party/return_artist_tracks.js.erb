@@ -1,11 +1,14 @@
 $('.track_listings').html('');
 counter = 0;
 <% @tracks.each do |track| %>
-$('.track_listings').append("<div class='tracks' id='track_"+counter+"'><%= track %></div>");
+$('.track_listings').append("<div class='tracks' id='track_"+counter+"'><%= track.song %></div>");
 counter++;
 <% end %>
 <% if @condition != 'search' %>
-tmpArtist = '<%= @artist %>';
+    tmpArtist = '<%= @artist %>';
+<% end %>
+<% if @condition == 'updating' %>
+    alert('Please wait while I update the database with your requested content.');
 <% end %>
 
 if (tmpArtistCount == artist_count)

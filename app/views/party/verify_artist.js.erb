@@ -1,11 +1,15 @@
-  var i = artistQueue.length;
-<% if @verified  %>
-  artistQueue.push('<%= @artist %>');
+ // var i = artistQueue.length;
+ var i = parseInt(<%= @count %>);
+ alert(i);
+ <% if @verified  %>
+  //artistQueue.push('<%#= @artist %>');
 
     $('#artist_'+i).html('<%= @artist %>');
-//  var appendString = "<div class='artist_shortcut' id='artist_"+i+"'><%= @artist %></div>";
-//   $('.artistQueue').append(appendString);
+    $('#listing_'+i).append('<span class="delete_me" id="delete_'+i+'"><%= image_tag 'delete_me_small.png' %></span>');
+
 <% else %>
-    $('#artist_'+i).html('<%= @artist %> <span class="error"> (Not Found) </span>').delay(1700).fadeOut(800);
-    artistQueue.splice(i, 1);
+    $('#artist_'+i).html('<%= @artist %> <span class="error"> (Not Found) </span>').delay(1700, function(){
+       $('#listing_'+i).fadeOut(800);
+    });
+    //artistQueue.splice(i, 1);
 <% end %>

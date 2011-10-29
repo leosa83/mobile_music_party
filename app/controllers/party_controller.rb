@@ -1,10 +1,8 @@
 class PartyController < ApplicationController
-
+    require 'rubygems'
 
   def index
-    require 'rubygems'
-    @requests = Request.all
-
+     @artists = Artist.order('artist ASC').all
   end
 
 
@@ -26,24 +24,41 @@ class PartyController < ApplicationController
   def return_artist_tracks
     artist = params[:artist]
     search = params[:search]
+    artist_id = Artist.find_by_artist(artist.strip.capitalize).id
 
     if search.nil?
       @condition = 'add'
     else
       @condition = nil
     end
+
+    song_count = Song.find_all_by_artist_id(artist_id).count
+
+    if song_count < 30
+      @condition = 'updating'
+      update_songs_via_lastfm(artist_id, artist)
+    end
+
     @artist = artist
-    artist_array = Rockstar::Artist.new(artist, :include_info => true)
-
-    @tracks = []
-    artist_array.top_tracks.each{|track| @tracks << track.name }
-
+    @tracks = Song.select('song').where(:artist_id => artist_id)
 
     respond_to do |format|
       format.js
     end
-
   end
+
+  def update_songs_via_lastfm(artist_id, artist)
+    artist_array = Rockstar::Artist.new(artist, :include_info => true)
+    tracks = []
+    artist_array.top_tracks.each{|track| tracks << track.name }
+
+    tracks.each do |track|
+      if !Song.find_by_song(track)
+        Song.create(:artist_id => artist_id, :song => track)
+      end
+    end
+  end
+
 
   def verify_artist
      @artist = params[:artist]
@@ -52,9 +67,11 @@ class PartyController < ApplicationController
      if !artist_array.content
        @verified = false
      else
+       Artist.create(:artist => @artist.strip.capitalize)
+
        @verified = true
      end
-
+    @count = Artist.all.count
     respond_to do |format|
       format.js
     end
