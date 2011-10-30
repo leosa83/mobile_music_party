@@ -2,7 +2,7 @@ class PartyController < ApplicationController
     require 'rubygems'
 
   def index
-     @artists = Artist.order('artist ASC').all
+     @artists = Artist.order('artist ASC').where(:visible => true)
   end
 
 
@@ -19,6 +19,13 @@ class PartyController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def delete_artist
+    artist_id = params[:id]
+
+    Artist.find(artist_id).update_attributes(:visible => false)
+
   end
 
   def return_artist_tracks
@@ -67,9 +74,16 @@ class PartyController < ApplicationController
      if !artist_array.content
        @verified = false
      else
-       Artist.create(:artist => @artist.strip.capitalize)
+       if Artist.find_by_artist_and_visible(@artist.strip.capitalize, false)
+          Artist.find_by_artist(@artist.strip.capitalize).update_attributes(:visible => true)
+          @verified = true
+       elsif Artist.find_by_artist_and_visible(@artist.strip.capitalize, true)
+           @verified = false
+       else
+         Artist.create(:artist => @artist.strip.capitalize, :visible => true)
+         @verified = true
+       end
 
-       @verified = true
      end
     @count = Artist.all.count
     respond_to do |format|

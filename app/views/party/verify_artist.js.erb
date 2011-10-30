@@ -1,6 +1,5 @@
  // var i = artistQueue.length;
- var i = parseInt(<%= @count %>);
- alert(i);
+ var i = parseInt($('.artist_listing').length);
  <% if @verified  %>
   //artistQueue.push('<%#= @artist %>');
 
@@ -8,7 +7,7 @@
     $('#listing_'+i).append('<span class="delete_me" id="delete_'+i+'"><%= image_tag 'delete_me_small.png' %></span>');
 
 <% else %>
-    $('#artist_'+i).html('<%= @artist %> <span class="error"> (Not Found) </span>').delay(1700, function(){
+    $('#artist_'+i).html('<%= @artist %> <span class="error"> (ERROR) </span>').delay(1700, function(){
        $('#listing_'+i).fadeOut(800);
     });
     //artistQueue.splice(i, 1);
