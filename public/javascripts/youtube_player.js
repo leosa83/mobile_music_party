@@ -77,7 +77,7 @@
             query_string = artist + song;
             var keyword= encodeURIComponent(query_string);
             // Youtube API
-            var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=1&v=2&alt=jsonc';
+            var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=1&v=2&top_rated&alt=jsonc';
             $.ajax({
                 type: "GET",
                 url: yt_url,
@@ -143,7 +143,7 @@
             query_string = artist + song;
             var keyword= encodeURIComponent(query_string);
             // Youtube API
-            var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results='+error_counter+'&orderby=viewCount&v=2&alt=jsonc';
+            var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results='+error_counter+'&v=2&top_rated&alt=jsonc';
             $.ajax({
                 type: "GET",
                 url: yt_url,
