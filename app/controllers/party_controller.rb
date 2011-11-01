@@ -3,6 +3,8 @@ class PartyController < ApplicationController
 
   def index
      @artists = Artist.order('artist ASC').where(:visible => true)
+
+     @playlists = Playlist.order('playlist ASC')
   end
 
 
@@ -47,7 +49,7 @@ class PartyController < ApplicationController
     end
 
     @artist = artist
-    @tracks = Song.select('song').where(:artist_id => artist_id)
+    @tracks = Song.select('song').order('priority DESC').where(:artist_id => artist_id)
 
     respond_to do |format|
       format.js
@@ -92,5 +94,45 @@ class PartyController < ApplicationController
   end
 
 
+  def create_playlist
+     playlist = params[:playlist]
+
+     @condition = nil
+     if !Playlist.find_by_playlist(playlist)
+       Playlist.create(:playlist => playlist)
+       @last_record = Playlist.last
+     else
+       @condition = 'exists'
+     end
+
+     respond_to do |format|
+       format.js
+     end
+  end
+
+  def add_track_to_playlist
+    playlist_id = params[:playlist_id]
+    artist = params[:artist]
+    song = params[:song]
+
+    artist_id = Artist.find_by_artist(params[:artist].strip).id
+    song_id = Song.find_by_song(params[:song].strip).id
+
+     List.create(:playlist_id => playlist_id, :artist_id => artist_id, :song_id => song_id).id
+    @track = List.last
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def return_playlist_tracks
+     playlist_id = params[:id]
+
+     @tracks = List.select('song_id, artist_id').where(:playlist_id => playlist_id)
+
+
+   #  Play
+
+  end
 
 end

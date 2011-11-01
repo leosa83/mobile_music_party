@@ -1,0 +1,3 @@
+var counter = $('.playlist_track_listing').length;
+<% track = @track %>
+$('.playlist_track_listings').append("<div class='playlist_track_listing'><div class='playlist_tracks' id='playlist_track_"+counter+"'><%= track.artist.artist %> - <%= track.song.song %></div><span class='delete_playlist_track' id='delete_playlist_track_"+counter+"'><img src='/images/delete_me_small.png' alt='test' /></span></div>");

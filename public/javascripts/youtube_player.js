@@ -10,18 +10,28 @@
     var tmpTracks = new Array();
     var artistQueue = new Array();
 
-    function buildArray(){
+    function buildArray(param){
         tracks = new Array();
-        $.each($('.tracks'), function(i, v){
-            tracks.push(v.firstChild.data);
+        $.each($(param), function(i, v){
+            if (param != '.tracks')
+            {
+             // alert(v.firstChild.data.split('-', 2)[1]);
+             var j = v.firstChild.data.split('-', 2);
+             var pushMe = j[0]+' '+j[1];
+             tracks.push(pushMe);
+            }
+            else
+            {
+              tracks.push(v.firstChild.data);
+            }
         });
 
         //startPlayar(tracks);
     }
 
-    function buildTmpArray(){
+    function buildTmpArray(param){
         tmpTracks = new Array();
-        $.each($('.tracks'), function(i, v){
+        $.each($(param), function(i, v){
             tmpTracks.push(v.firstChild.data);
         });
         //startPlayar(tracks);
@@ -52,12 +62,14 @@
     }
 
    $('.tracks').live('click', function(){
-        buildArray();
+        buildArray('.tracks');
         current_artist = tmpArtist;
         var arr = $(this).attr('id').split('_', 2);
         global_count = parseInt(arr[1] - 1);
         artist_count = tmpArtistCount;
         $('.artist_listing').removeClass('active');
+        $('.playlist_listing').removeClass('active');
+        $(this).parent('.track_listing').addClass('active');
         $('#listing_'+artist_count).addClass('active');
 
         startPlayar(tracks);
@@ -65,16 +77,42 @@
 
     function highlight_current_song() {
         de_highlight_song();
-        $('#track_'+global_count).addClass('active');
+        if (current_artist == 'playlist')
+        {
+           $('#playlist_track_'+global_count).parent('.playlist_track_listing').addClass('active');
+        }
+        else
+        {
+           $('#track_'+global_count).parent('.track_listing').addClass('active');
+        }
+
     }
 
     function de_highlight_song(){
-        $('.tracks').removeClass('active');
+        if (current_artist == 'playlist')
+        {
+           $('.playlist_track_listing').removeClass('active');
+            $('.track_listing').removeClass('active');
+        }
+        else
+        {
+           $('.track_listing').removeClass('active');
+            $('.playlist_track_listing').removeClass('active');
+        }
+
     }
 
     function return_video_key(artist, song)
     {
-            query_string = artist + song;
+            if (artist == 'playlist')
+            {
+              query_string = song;
+            }
+            else
+            {
+              query_string = artist + song;
+            }
+
             var keyword= encodeURIComponent(query_string);
             // Youtube API
             var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=1&v=2&top_rated&alt=jsonc';
@@ -124,13 +162,14 @@
           if (event.data == '150' || event.data == '101')
           {
               error_counter++;
-              fix_vevo_key(current_artist, tracks[global_count], error_counter);
+
               if (error_counter == 5)
               {
                   alert('Video has been removed from the list... Blame Vimeo.');
-                  tracks.splice(global_count, 1);
+                  //tracks.splice(global_count, 1);
                   startPlayar(tracks);
               }
+              fix_vevo_key(current_artist, tracks[global_count], error_counter);
           }
           else
           {

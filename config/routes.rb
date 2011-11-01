@@ -8,6 +8,11 @@ MobileMusicParty::Application.routes.draw do
   match '/' => 'party#index', :via => 'get'
   match '/' => 'party#new', :via => 'post'
 
+
+
+  match '/returnTracks' => 'party#return_playlist_tracks', :via => 'post'
+  match '/addTrack' => 'party#add_track_to_playlist', :via => 'post'
+  match '/createPlaylist' => 'party#create_playlist', :via => 'post'
   match '/playArtist' => 'party#return_artist_tracks', :via => 'post'
   match '/verifyArtist' => 'party#verify_artist', :via => 'post'
   match '/deleteArtist' => 'party#delete_artist', :via => 'post'

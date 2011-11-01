@@ -1,7 +1,7 @@
 $('.track_listings').html('');
 counter = 0;
 <% @tracks.each do |track| %>
-$('.track_listings').append("<div class='tracks' id='track_"+counter+"'><%= track.song %></div>");
+    $('.track_listings').append("<div class='track_listing'><div class='tracks' id='track_"+counter+"'><%= track.song %></div><span class='add_playlist' id='add_"+counter+"'><img src='/images/plus_sign_small.png' alt='test' /></span></div>");
 counter++;
 <% end %>
 <% if @condition != 'search' %>
@@ -15,4 +15,4 @@ if (tmpArtistCount == artist_count)
 {
     $('#track_'+global_count).addClass('active');
 }
-buildTmpArray();
+buildTmpArray('.tracks');

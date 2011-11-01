@@ -1,0 +1,8 @@
+<% if @condition %>
+    alert('Playlist already exists...');
+<% else %>
+    <% playlist = @last_record %>
+    $('.playlistQueue').append('<div class="playlist_listing" id="play_listing_<%= playlist.id %>"><div class="playlist_shortcut" id="playlist_<%= playlist.id %>"><%= playlist.playlist %></div><span class="delete_playlist" id="playlist_delete_<%= playlist.id %>"><%= image_tag 'delete_me_small.png' %></span></div>');
+
+    $('#playlist_id').append('<option value="<%= playlist.id %>"><%= playlist.playlist %></option>');
+<% end %>
