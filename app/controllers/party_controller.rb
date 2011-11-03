@@ -135,4 +135,12 @@ class PartyController < ApplicationController
 
   end
 
+  def shuffle_playlist
+    playlist_name = params[:playlist]
+
+    id = Playlist.find_by_playlist(playlist_name).id
+    @tracks = List.select('song_id, artist_id').where(:playlist_id => id)
+    @tracks.shuffle!
+
+  end
 end

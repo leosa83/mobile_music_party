@@ -148,8 +148,8 @@
         player = new YT.Player('player', {
           height: '390',
           width: '640',
-          videoId: 'mjli3hj0ZkM',
-          playerVars: { 'autoplay': 1, 'controls': 1 },
+          videoId: 'vIaH35-MLsk',
+          playerVars: { 'autoplay': 0, 'controls': 1 },
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange,
@@ -204,7 +204,7 @@
 
       // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
-        event.target.playVideo();
+        //event.target.playVideo();
       }
 
       // 5. The API calls this function when the player's state changes.

@@ -9,7 +9,7 @@ MobileMusicParty::Application.routes.draw do
   match '/' => 'party#new', :via => 'post'
 
 
-
+  match '/shufflePlaylist' => 'party#shuffle_playlist', :via => 'post'
   match '/returnTracks' => 'party#return_playlist_tracks', :via => 'post'
   match '/addTrack' => 'party#add_track_to_playlist', :via => 'post'
   match '/createPlaylist' => 'party#create_playlist', :via => 'post'

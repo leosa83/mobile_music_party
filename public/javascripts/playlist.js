@@ -55,5 +55,11 @@ function addTrack(){
     $('#addTrack').val('');
 }
 
+function shufflePlaylist()
+{
+
+    $.post('/shufflePlaylist', {playlist:tmpArtist});
+}
+
 
 
