@@ -115,7 +115,7 @@
 
             var keyword= encodeURIComponent(query_string);
             // Youtube API
-            var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=1&v=2&top_rated&alt=jsonc';
+            var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=1&v=2&most_viewed&alt=jsonc';
             $.ajax({
                 type: "GET",
                 url: yt_url,
@@ -149,7 +149,7 @@
           height: '390',
           width: '640',
           videoId: 'vIaH35-MLsk',
-          playerVars: { 'autoplay': 0, 'controls': 1 },
+          playerVars: { 'autoplay': 1, 'controls': 1 },
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange,
